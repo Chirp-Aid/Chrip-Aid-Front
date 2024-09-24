@@ -8,7 +8,7 @@ part of 'get_posts_entity.dart';
 
 GetPostsEntity _$GetPostsEntityFromJson(Map<String, dynamic> json) =>
     GetPostsEntity(
-      reviewId: json['review_id'] as int,
+      reviewId: (json['review_id'] as num).toInt(),
       title: json['title'] as String,
       content: json['content'] as String,
       photo: (json['photos'] as List<dynamic>).map((e) => e as String).toList(),

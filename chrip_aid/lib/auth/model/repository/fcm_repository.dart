@@ -1,4 +1,3 @@
-import 'package:chrip_aid/auth/model/repository/fcm_repository.stub.dart';
 import 'package:chrip_aid/common/utils/log_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

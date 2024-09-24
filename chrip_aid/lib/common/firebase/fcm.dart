@@ -33,7 +33,7 @@ Future initFCM() async {
   var initializationSettingsIOS = const DarwinInitializationSettings(
     requestSoundPermission: true,
     requestBadgePermission: true,
-    requestAlertPermission: true,
+    requestAlertPermission: true
   );
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -102,6 +102,6 @@ Future saveAlarm(RemoteMessage message) async {
   message.data["time"] = alarmDateFormat.format(DateTime.now());
 
   ProviderContainer().read(alarmServiceProvider).saveAlarm(
-    AlarmEntity.fromJson(message.data),
-  );
+        AlarmEntity.fromJson(message.data),
+      );
 }

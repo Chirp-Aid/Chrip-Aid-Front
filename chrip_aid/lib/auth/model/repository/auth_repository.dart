@@ -1,6 +1,5 @@
 import 'package:chrip_aid/auth/dto/login_request_dto.dart';
 import 'package:chrip_aid/auth/dto/signup_request_dto.dart';
-import 'package:chrip_aid/auth/model/repository/auth_repository.stub.dart';
 import 'package:chrip_aid/common/dio/dio.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';

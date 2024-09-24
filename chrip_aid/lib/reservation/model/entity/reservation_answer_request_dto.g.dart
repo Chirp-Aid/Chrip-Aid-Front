@@ -9,7 +9,7 @@ part of 'reservation_answer_request_dto.dart';
 ReservationAnswerRequestDto _$ReservationAnswerRequestDtoFromJson(
         Map<String, dynamic> json) =>
     ReservationAnswerRequestDto(
-      reservationId: json['reservation_id'] as int,
+      reservationId: (json['reservation_id'] as num).toInt(),
       state: json['state'] as String,
       message: json['message'] as String,
     );

@@ -8,8 +8,8 @@ part of 'add_basket_item_entity.dart';
 
 AddBasketItemEntity _$AddBasketItemEntityFromJson(Map<String, dynamic> json) =>
     AddBasketItemEntity(
-      requestId: json['request_id'] as int,
-      count: json['count'] as int,
+      requestId: (json['request_id'] as num).toInt(),
+      count: (json['count'] as num).toInt(),
     );
 
 Map<String, dynamic> _$AddBasketItemEntityToJson(

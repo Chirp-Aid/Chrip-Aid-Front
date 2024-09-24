@@ -2,7 +2,6 @@ import 'package:chrip_aid/common/dio/dio.dart';
 import 'package:chrip_aid/post/model/entity/get_posts_entity.dart';
 import 'package:chrip_aid/post/model/entity/tag_entity.dart';
 import 'package:chrip_aid/post/model/entity/write_post_request_dto.dart';
-import 'package:chrip_aid/post/model/repository/orphanage_post_repository.stub.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/http.dart';

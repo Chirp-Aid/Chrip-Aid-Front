@@ -4,6 +4,8 @@ import 'package:chrip_aid/auth/view/login_screen.dart';
 import 'package:chrip_aid/auth/view/orphanage_sign_up_screen.dart';
 import 'package:chrip_aid/auth/view/sign_up_screen.dart';
 import 'package:chrip_aid/auth/view/user_sign_up_screen.dart';
+import 'package:chrip_aid/common/component/custom_detail_post_info.dart';
+import 'package:chrip_aid/common/component/custom_detail_report_info.dart';
 import 'package:chrip_aid/common/utils/log_util.dart';
 import 'package:chrip_aid/root_tab/view/root_tab_screen.dart';
 import 'package:chrip_aid/common/view/splash_screen.dart';
@@ -28,9 +30,15 @@ import 'package:chrip_aid/post/view/user_post_screen.dart';
 import 'package:chrip_aid/reservation/view/orphanage_reservation_screen.dart';
 import 'package:chrip_aid/reservation/view/reservation_screen.dart';
 import 'package:chrip_aid/reservation/view/user_reservation_screen.dart';
+import 'package:chrip_aid/supervisor/view/supervisor_postmanagement_screen.dart';
+import 'package:chrip_aid/supervisor/view/supervisor_reportmanagement_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../supervisor/view/superviser_screen.dart';
+import '../../supervisor/view/supervisor_accountmanagement_screen.dart';
+import '../component/custom_detail_info.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final auth = ref.watch(authProvider);
@@ -230,6 +238,75 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
         ],
+      ),
+      GoRoute(
+        path: '/supervisor',
+        name: SupervisorScreen.routeName,
+        builder: (context, state) => const SupervisorScreen(),
+        routes: [
+          GoRoute(
+          path: 'accountmanagement',
+          name: SupervisorAccountmanagementScreen.routeName,
+          builder: (context, state) => const SupervisorAccountmanagementScreen(),
+            routes: [
+              GoRoute(
+                path: 'detail',
+                builder: (context, state) {
+                  final userData = state.extra as Map<String, dynamic>;
+                  return CustomDetailInfo(
+                    name: userData['name'],
+                    email: userData['email'],
+                    phoneNumber: userData['phoneNumber'],
+                    nickname: userData['nickname'],
+                    age: '20',
+                    region: 'Gumi',
+                    sex: 'M',
+                  );
+                },
+              ),
+            ]
+        ),
+          GoRoute(
+            path: 'postmanagement',
+            name: SupervisorPostManagementScreen.routeName,
+            builder: (context, state) => SupervisorPostManagementScreen(),
+              routes: [
+                GoRoute(
+                  path: 'postdetail',
+                  builder: (context, state) {
+                    final userData = state.extra as Map<String, dynamic>;
+                    return CustomDetailPostInfo(
+                      title: userData['title'],
+                      content: userData['content'],
+                      writtenAt: userData['writtenAt'],
+                      nickname: userData['nickname'],
+                    );
+                  },
+                ),
+          ]
+          ),
+          GoRoute(
+            path: 'reportmanagement',
+            name: SupervisorReportmanagementScreen.routeName,
+            builder: (context, state) => const SupervisorReportmanagementScreen(),
+            routes: [
+              GoRoute(
+                path: 'detail',
+                builder: (context, state) {
+                  final userData = state.extra as Map<String, dynamic>;
+                  return CustomDetailReportInfo(
+                    title: userData['title'],
+                    target: userData['target'],
+                    writtenAt: userData['writtenAt'],
+                    nickname: userData['nickname'],
+                    content: userData['content'],
+                    email: userData['email'],
+                  );
+                },
+              ),
+            ],
+          ),
+        ]
       ),
     ],
     refreshListenable: auth.authState,

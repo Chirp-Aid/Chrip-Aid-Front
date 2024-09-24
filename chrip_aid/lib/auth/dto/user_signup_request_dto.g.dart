@@ -12,7 +12,7 @@ UserSignupRequestDto _$UserSignupRequestDtoFromJson(
       name: json['name'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
-      age: json['age'] as int,
+      age: (json['age'] as num).toInt(),
       sex: json['sex'] as String,
       nickname: json['nickname'] as String,
       region: json['region'] as String,

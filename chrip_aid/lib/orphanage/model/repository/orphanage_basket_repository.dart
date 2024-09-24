@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/http.dart';
 import '../entity/add_basket_item_entity.dart';
 import '../entity/orphanage_basket_entity.dart';
-import 'orphanage_basket_repository.stub.dart';
 
 part 'orphanage_basket_repository.g.dart';
 

@@ -9,7 +9,7 @@ part of 'donate_request_dto.dart';
 DonateRequestDTO _$DonateRequestDTOFromJson(Map<String, dynamic> json) =>
     DonateRequestDTO(
       basketProductIds: (json['basket_product_id'] as List<dynamic>)
-          .map((e) => e as int)
+          .map((e) => (e as num).toInt())
           .toList(),
       message: json['message'] as String,
     );

@@ -10,7 +10,7 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
       email: json['email'] as String,
       name: json['name'] as String,
       nickName: json['nickname'] as String,
-      age: json['age'] as int,
+      age: (json['age'] as num).toInt(),
       sex: UserEntity._sexFromJson(json['sex'] as String),
       region: UserEntity._regionFromJson(json['region'] as String),
       phone: json['phone_number'] as String,

@@ -9,7 +9,7 @@ part of 'update_reservation_state_entity.dart';
 UpdateReservationStateEntity _$UpdateReservationStateEntityFromJson(
         Map<String, dynamic> json) =>
     UpdateReservationStateEntity(
-      reservationId: json['reservation_id'] as int,
+      reservationId: (json['reservation_id'] as num).toInt(),
       state: json['state'] as String,
       message: json['message'] as String,
     );

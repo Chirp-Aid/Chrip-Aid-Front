@@ -10,8 +10,8 @@ DonateEntity _$DonateEntityFromJson(Map<String, dynamic> json) => DonateEntity(
       orphanageName: json['orphanage_name'] as String,
       date: json['date'] as String,
       productName: json['product_name'] as String,
-      price: json['price'] as int,
-      count: json['count'] as int,
+      price: (json['price'] as num).toInt(),
+      count: (json['count'] as num).toInt(),
       message: json['message'] as String,
     );
 

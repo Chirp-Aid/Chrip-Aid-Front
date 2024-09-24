@@ -1,8 +1,6 @@
 import 'package:chrip_aid/common/component/custom_outlined_button.dart';
 import 'package:chrip_aid/common/component/shadow_image.dart';
 import 'package:chrip_aid/common/layout/default_layout.dart';
-import 'package:chrip_aid/common/styles/colors.dart';
-import 'package:chrip_aid/common/styles/sizes.dart';
 import 'package:chrip_aid/common/styles/styles.dart';
 import 'package:chrip_aid/root_tab/view/tab_screen.dart';
 import 'package:chrip_aid/home/component/custom_speech_balloon.dart';

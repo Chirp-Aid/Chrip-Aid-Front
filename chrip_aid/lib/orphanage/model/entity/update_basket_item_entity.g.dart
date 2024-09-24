@@ -9,8 +9,8 @@ part of 'update_basket_item_entity.dart';
 UpdateBasketItemEntity _$UpdateBasketItemEntityFromJson(
         Map<String, dynamic> json) =>
     UpdateBasketItemEntity(
-      json['count'] as int,
-      json['request_id'] as int,
+      (json['count'] as num).toInt(),
+      (json['request_id'] as num).toInt(),
     );
 
 Map<String, dynamic> _$UpdateBasketItemEntityToJson(

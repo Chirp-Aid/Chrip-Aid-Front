@@ -8,11 +8,11 @@ part of 'request_item_entity.dart';
 
 RequestItemEntity _$RequestItemEntityFromJson(Map<String, dynamic> json) =>
     RequestItemEntity(
-      requestId: json['request_id'] as int,
+      requestId: (json['request_id'] as num).toInt(),
       productName: json['product_name'] as String,
-      price: json['price'] as int,
-      requestCount: json['count'] as int,
-      supportCount: json['supported_count'] as int,
+      price: (json['price'] as num).toInt(),
+      requestCount: (json['count'] as num).toInt(),
+      supportCount: (json['supported_count'] as num).toInt(),
       state: json['state'] as String,
       message: json['message'] as String,
       productPhoto: json['product_photo'] as String,
