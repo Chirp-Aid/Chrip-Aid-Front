@@ -7,7 +7,6 @@ class DetailPageLayout extends StatelessWidget {
   final Color? appBarBackgroundColor;
   final Color backgroundColor;
   final Color? leadingColor;
-  final Color? titleColor;
   final Widget? bottomNavigationBar;
   final Widget? floatingActionButton;
   final PreferredSizeWidget? bottom;
@@ -20,7 +19,6 @@ class DetailPageLayout extends StatelessWidget {
     this.title,
     this.backgroundColor = Colors.white,
     this.bottomNavigationBar,
-    this.titleColor = Colors.black,
     this.floatingActionButton,
     this.extendBodyBehindAppBar = true,
     required this.child,
@@ -50,8 +48,7 @@ class DetailPageLayout extends StatelessWidget {
             ? null
             : Text(
                 title!,
-                style: TextStyle(
-                  color: titleColor,
+                style: const TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w400,
                 ),

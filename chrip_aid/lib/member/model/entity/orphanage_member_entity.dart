@@ -1,4 +1,5 @@
 import 'package:chrip_aid/member/model/entity/member_entity.dart';
+import 'package:chrip_aid/orphanage/model/entity/orphanage_detail_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'orphanage_member_entity.g.dart';

@@ -8,9 +8,9 @@ part of 'product_entity.dart';
 
 ProductEntity _$ProductEntityFromJson(Map<String, dynamic> json) =>
     ProductEntity(
-      id: (json['product_id'] as num).toInt(),
+      id: json['product_id'] as int,
       productName: json['product_name'] as String,
-      price: (json['price'] as num).toInt(),
+      price: json['price'] as int,
       image: json['product_photo'] as String,
     );
 

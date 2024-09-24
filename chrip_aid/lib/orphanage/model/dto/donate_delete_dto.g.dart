@@ -8,7 +8,7 @@ part of 'donate_delete_dto.dart';
 
 DonateDeleteDto _$DonateDeleteDtoFromJson(Map<String, dynamic> json) =>
     DonateDeleteDto(
-      basketProductId: (json['basket_product_id'] as num).toInt(),
+      basketProductId: json['basket_product_id'] as int,
     );
 
 Map<String, dynamic> _$DonateDeleteDtoToJson(DonateDeleteDto instance) =>

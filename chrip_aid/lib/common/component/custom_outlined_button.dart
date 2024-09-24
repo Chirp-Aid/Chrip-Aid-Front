@@ -7,7 +7,6 @@ class CustomOutlinedButton extends StatelessWidget {
   final String text;
 
   final Color color;
-  final Icon? icon;
 
   final TextStyle? textStyle;
 
@@ -19,7 +18,6 @@ class CustomOutlinedButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.text,
-    this.icon,
     this.color = CustomColor.buttonMainColor,
     this.elevation,
     this.hasSide = true,
@@ -44,21 +42,11 @@ class CustomOutlinedButton extends StatelessWidget {
         ),
         elevation: elevation,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          icon!,
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            text,
-            style: textStyle ??
-                kTextReverseStyleMiddle.copyWith(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        ],
+      child: Text(
+        text,
+        style: textStyle ??
+            kTextReverseStyleMiddle.copyWith(fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
       ),
     );
   }

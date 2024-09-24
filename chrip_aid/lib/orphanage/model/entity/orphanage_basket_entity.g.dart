@@ -9,11 +9,11 @@ part of 'orphanage_basket_entity.dart';
 OrphanageBasketEntity _$OrphanageBasketEntityFromJson(
         Map<String, dynamic> json) =>
     OrphanageBasketEntity(
-      requestId: (json['request_id'] as num).toInt(),
-      basketProductId: (json['basket_product_id'] as num).toInt(),
+      requestId: json['request_id'] as int,
+      basketProductId: json['basket_product_id'] as int,
       productName: json['product_name'] as String,
-      count: (json['count'] as num).toInt(),
-      price: (json['price'] as num).toInt(),
+      count: json['count'] as int,
+      price: json['price'] as int,
       orphanageName: json['orphanage_name'] as String,
       productPhoto: json['product_photo'] as String,
     );

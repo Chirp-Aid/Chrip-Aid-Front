@@ -11,7 +11,7 @@ OrphanageMemberEntity _$OrphanageMemberEntityFromJson(
     OrphanageMemberEntity(
       email: json['email'] as String,
       name: json['name'] as String,
-      orphanageId: (json['orphanage_id'] as num).toInt(),
+      orphanageId: json['orphanage_id'] as int,
     );
 
 Map<String, dynamic> _$OrphanageMemberEntityToJson(

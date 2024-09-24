@@ -9,7 +9,7 @@ part of 'edit_orphanage_info_request_dto.dart';
 EditOrphanageInfoRequestDTO _$EditOrphanageInfoRequestDTOFromJson(
         Map<String, dynamic> json) =>
     EditOrphanageInfoRequestDTO(
-      orphanageId: (json['orphanage_id'] as num).toInt(),
+      orphanageId: json['orphanage_id'] as int,
       orphanageName: json['orphanage_name'] as String,
       address: json['address'] as String,
       homepageLink: json['homepage_link'] as String,
