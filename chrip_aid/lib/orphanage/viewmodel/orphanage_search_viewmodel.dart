@@ -2,7 +2,7 @@ import 'package:chrip_aid/auth/model/type/region.dart';
 import 'package:chrip_aid/auth/model/type/region/sub_region.dart';
 import 'package:chrip_aid/common/component/custom_dropdown_button.dart';
 import 'package:chrip_aid/common/value_state/util/value_state_util.dart';
-import 'package:chrip_aid/member/model/entity/user_detail_entity.dart';
+import 'package:chrip_aid/member/model/entity/user_entity.dart';
 import 'package:chrip_aid/member/model/service/member_info_service.dart';
 import 'package:chrip_aid/member/model/state/member_info_state.dart';
 import 'package:chrip_aid/orphanage/model/entity/orphanage_entity.dart';
@@ -50,7 +50,7 @@ class OrphanageSearchViewModel {
 
   final OrphanageListState orphanageState = OrphanageListState();
 
-  UserDetailEntity? get _userInfo => memberState.value as UserDetailEntity?;
+  UserEntity? get _userInfo => memberState.value as UserEntity?;
 
   OrphanageSearchViewModel(this.ref) {
     _memberInfoService = ref.read(memberInfoServiceProvider);

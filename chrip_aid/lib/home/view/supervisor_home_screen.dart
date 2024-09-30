@@ -2,22 +2,22 @@ import 'package:chrip_aid/common/component/custom_outlined_button.dart';
 import 'package:chrip_aid/common/component/shadow_image.dart';
 import 'package:chrip_aid/common/layout/default_layout.dart';
 import 'package:chrip_aid/common/styles/styles.dart';
+import 'package:chrip_aid/home/viewmodel/supervisor_home_viewmodel.dart';
 import 'package:chrip_aid/root_tab/view/tab_screen.dart';
 import 'package:chrip_aid/home/component/custom_speech_balloon.dart';
 import 'package:chrip_aid/home/viewmodel/user_home_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-class UserHomeScreen extends TabScreen {
+class SupervisorHomeScreen extends TabScreen {
   @override
   Color get mainColor => CustomColor.mainColor;
 
-  const UserHomeScreen({Key? key}) : super(key: key);
+  const SupervisorHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewmodel = ref.watch(userHomeViewModelProvider);
+    final viewmodel = ref.watch(supervisorHomeViewModelProvider);
     return DefaultLayout(
       title: "Chirp Aid",
       appbarColor: mainColor,
@@ -27,34 +27,8 @@ class UserHomeScreen extends TabScreen {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomSpeechBalloon(
-                child: SizedBox(
-                  height: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(kPaddingMiddleSize),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          "작은 봉사라도 그것이 계속된다면 참다운 봉사이다. 데이지 꽃은 그것이 드리우는 제 그림자에 의하여 아롱지는 이슬방울을 햇빛으로부터 지켜준다.",
-                          style: kTextContentStyleMiddle.copyWith(
-                            color: CustomColor.mainColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                        const Expanded(child: SizedBox()),
-                        Text(
-                          "- 윌리엄 워즈워스",
-                          textAlign: TextAlign.right,
-                          style: kTextContentStyleMiddle.copyWith(
-                            color: CustomColor.mainColor,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              SizedBox(
+                height: 150,
               ),
               const SizedBox(height: kPaddingLargeSize),
               Row(
@@ -63,8 +37,12 @@ class UserHomeScreen extends TabScreen {
                   Expanded(
                     child: CustomOutlinedButton(
                       onPressed: () =>
-                          viewmodel.navigateToSearchScreen(context),
-                      text: "우리동네\n보육원 찾기",
+                          viewmodel.navigateToAccountManagementScreen(context),
+                      icon: Icon(
+                        Icons.account_circle,
+                        size:60,color: Colors.white,
+                      ),
+                      text: "계정 관리",
                       elevation: kElevationSize,
                       fixedSize: kOutlinedButtonLargeSize,
                       hasSide: false,
@@ -88,10 +66,14 @@ class UserHomeScreen extends TabScreen {
                 children: [
                   Expanded(
                     child: CustomOutlinedButton(
-                      onPressed: () => viewmodel.navigateToPostScreen(
+                      onPressed: () => viewmodel.navigateToPostsManagementScreen(
                         context,
                       ),
-                      text: "후원 인증글",
+                      icon: Icon(
+                        Icons.description,
+                        size:60,color: Colors.white,
+                      ),
+                      text: "게시글 관리",
                       elevation: kElevationSize,
                       fixedSize: kOutlinedButtonLargeSize,
                       hasSide: false,
@@ -100,10 +82,13 @@ class UserHomeScreen extends TabScreen {
                   const SizedBox(width: kPaddingMiddleSize),
                   Expanded(
                     child: CustomOutlinedButton(
-                      onPressed: () => viewmodel.navigateToReservationScreen(
+                      onPressed: () => viewmodel.navigateToReportManagementScreen(
                         context,
                       ),
-                      text: "방문 신청 내역",
+                      icon: Icon(
+                        Icons.warning_amber_rounded,
+                        size:60,color: Colors.white,
+                      ),                      text: "신고 관리",
                       elevation: kElevationSize,
                       fixedSize: kOutlinedButtonLargeSize,
                       hasSide: false,
@@ -111,36 +96,10 @@ class UserHomeScreen extends TabScreen {
                   ),
                 ],
               ),
-              SizedBox(height: kPaddingLargeSize,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      color: CustomColor.itemMainColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      onPressed: () =>_navigateToDetailPage(context),
-                      icon: Icon(
-                        Icons.chat_bubble_outline_rounded,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-
             ],
           ),
         ),
       ),
-    );
-  }
-  void _navigateToDetailPage(BuildContext context) {
-    context.push(
-      '/chatting',
     );
   }
 }

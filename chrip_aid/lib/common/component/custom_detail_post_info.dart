@@ -4,6 +4,7 @@ import 'package:chrip_aid/orphanage/layout/detail_page_layout.dart';
 import '../../admin/viewmodel/admin_accountmanagement_viewmodel.dart';
 import '../styles/colors.dart';
 import '../styles/sizes.dart';
+import 'custom_user_list.dart';
 
 class CustomDetailPostInfo extends ConsumerWidget {
   final String title;
@@ -21,7 +22,7 @@ class CustomDetailPostInfo extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(adminAccountManagementViewModelProvider)..getUserList();
+    final viewModel = ref.read(adminAccountManagementViewModelProvider)..getInfo();
 
     return DetailPageLayout(
       extendBodyBehindAppBar: false,
@@ -32,7 +33,7 @@ class CustomDetailPostInfo extends ConsumerWidget {
       leadingColor: CustomColor.textReverseColor,
       actions: [
         IconButton(
-          onPressed: () => {},
+          onPressed: () => viewModel.navigateToEditOrphanageScreen(context),
           icon: const Icon(Icons.search, size: kIconSmallSize),
           color: CustomColor.textReverseColor,
           splashRadius: kIconSmallSize,

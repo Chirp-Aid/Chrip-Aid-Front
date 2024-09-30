@@ -25,7 +25,7 @@ class CustomDetailReportInfo extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(adminAccountManagementViewModelProvider)..getUserList();
+    final viewModel = ref.read(adminAccountManagementViewModelProvider)..getInfo();
 
     return DetailPageLayout(
       extendBodyBehindAppBar: false,
@@ -36,7 +36,7 @@ class CustomDetailReportInfo extends ConsumerWidget {
       leadingColor: CustomColor.textReverseColor,
       actions: [
         IconButton(
-          onPressed: () => {},
+          onPressed: () => viewModel.navigateToEditOrphanageScreen(context),
           icon: const Icon(Icons.search, size: kIconSmallSize),
           color: CustomColor.textReverseColor,
           splashRadius: kIconSmallSize,

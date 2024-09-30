@@ -11,9 +11,9 @@ import '../../common/styles/text_styles.dart';
 import '../../common/value_state/component/value_state_listener.dart';
 import '../../orphanage/component/custom_text_field.dart';
 import '../../orphanage/layout/detail_page_layout.dart';
-import '../viewmodel/admin_accountmanagement_viewmodel.dart';
+import '../viewmodel/supervisor_accountmanagement_viewmodel.dart';
 
-class AdminPostmanagementScreen extends ConsumerWidget {
+class SupervisorPostManagementScreen extends ConsumerWidget {
   static String get routeName => 'postmanagement';
 
   // 더미 데이터
@@ -58,11 +58,11 @@ class AdminPostmanagementScreen extends ConsumerWidget {
   // StateProvider로 선택된 토글 값을 관리
   final selectedToggleProvider = StateProvider<int>((ref) => 0);
 
-  AdminPostmanagementScreen({Key? key}) : super(key: key);
+  SupervisorPostManagementScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(adminAccountManagementViewModelProvider)..getInfo();
+    final viewModel = ref.read(supervisorAccountManagementViewModelProvider)..getInfo();
     final selectedIndex = ref.watch(selectedToggleProvider); // 선택된 토글 인덱스
 
     // 선택된 인덱스에 따라 데이터 필터링

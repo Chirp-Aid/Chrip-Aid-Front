@@ -1,86 +1,40 @@
 import 'package:chrip_aid/common/dio/dio.dart';
-import 'package:chrip_aid/member/model/entity/user_detail_entity.dart';
+import 'package:chrip_aid/management/model/dto/add_orphanage_product_request_dto.dart';
+import 'package:chrip_aid/management/model/dto/edit_orphanage_info_request_dto.dart';
+import 'package:chrip_aid/orphanage/model/entity/orphanage_detail_entity.dart';
+import 'package:chrip_aid/orphanage/model/entity/product_entity.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
-import '../../../orphanage/model/entity/orphanage_detail_entity.dart';
-import '../../../orphanage/model/entity/orphanage_entity.dart';
-import '../dto/admin_orphanage_user_update_request_dto.dart';
-import '../dto/admin_user_update_request_dto.dart';
-
 part 'admin_accountmanager_repository.g.dart';
 
 final adminAccountManagementRepositoryProvider = Provider((ref) {
   final dio = ref.watch(dioProvider);
+  // return OrphanageManagementRepositoryStub();
   return AdminAccountManagementRepository(dio);
 });
 
 @RestApi()
 abstract class AdminAccountManagementRepository {
-  factory AdminAccountManagementRepository(Dio dio, {String? baseUrl}) = _AdminAccountManagementRepository;
+  factory AdminAccountManagementRepository(Dio dio, {String? baseUrl}) =
+  _AdminAccountManagementRepository;
 
-  // 사용자 정보 추가
-  @POST('/admin/users')
+  // TODO : 아래 부분 수정해야함
+  @GET('/orphanages/{id}')
   @Headers({'accessToken': 'true'})
-  Future<void> createUser(@Body() AdminUserCreateRequestDTO dto);
+  Future<OrphanageDetailEntity> getOrphanageData(@Path("id") int id);
 
-  // 등록된 사용자 정보 전체 조회
-  @GET('/admin/users')
+  @PATCH('/orphanages')
   @Headers({'accessToken': 'true'})
-  Future<List<UserDetailEntity>> getAllUsers();
+  Future editOrphanageInfo(@Body() EditOrphanageInfoRequestDTO dto);
 
-  // 사용자 정보 ID 검색
-  @GET('/admin/users/id')
+  @POST('/requests')
   @Headers({'accessToken': 'true'})
-  Future<UserDetailEntity> getUserById(@Query('id') String id);
+  Future editOrphanageProduct(@Body() AddOrphanageProductRequestDTO dto);
 
-  // 사용자 정보 닉네임 검색
-  @GET('/admin/users/nickname')
+  @GET('/requests/products')
   @Headers({'accessToken': 'true'})
-  Future<UserDetailEntity> getUserByNickname(@Query('nickname') String nickname);
-
-  // 사용자 정보 수정
-  @PATCH('/admin/users/{id}')
-  @Headers({'accessToken': 'true'})
-  Future<void> updateUser(@Path('id') String id, @Body() UserUpdateRequestDto dto);
-
-  // 사용자 정보 삭제
-  @DELETE('/admin/users/{id}')
-  @Headers({'accessToken': 'true'})
-  Future<void> deleteUser(@Path('id') String id);
-
-  // 보육원 사용자 정보 추가
-  @POST('/admin/orphanage-users')
-  @Headers({'accessToken': 'true'})
-  Future<void> createOrphanageUser(@Body() AdminUserCreateRequestDTO dto);
-
-  // 등록된 보육원 사용자 정보 전체 조회
-  @GET('/admin/orphanage-users')
-  @Headers({'accessToken': 'true'})
-  Future<List<OrphanageEntity>> getAllOrphanageUsers();
-
-  // 보육원 사용자 정보 ID 검색
-  @GET('/admin/orphanage-users/id')
-  @Headers({'accessToken': 'true'})
-  Future<OrphanageDetailEntity> getOrphanageUserById(@Query('id') String id);
-
-  // 보육원 사용자 이름 검색
-  @GET('/admin/orphanage-users/name')
-  @Headers({'accessToken': 'true'})
-  Future<OrphanageDetailEntity> getOrphanageUserByName(@Query('name') String name);
-
-  // 보육원 사용자 정보 수정
-  @PATCH('/admin/orphanage-users/{id}')
-  @Headers({'accessToken': 'true'})
-  Future<void> updateOrphanageUser(@Path('id') String id, @Body() OrphanageUserUpdateRequestDto dto);
-
-  // 보육원 사용자 정보 삭제
-  @DELETE('/admin/orphanage-users/{id}')
-  @Headers({'accessToken': 'true'})
-  Future<void> deleteOrphanageUser(@Path('id') String id);
-}
-
-class AdminUserCreateRequestDTO {
+  Future<List<ProductEntity>> getProducts();
 }

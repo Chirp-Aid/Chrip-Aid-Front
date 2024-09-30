@@ -242,7 +242,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         ],
       ),
       GoRoute(
-        path: '/admin',
+        path: '/supervisor',
         name: AdminScreen.routeName,
         builder: (context, state) => const AdminScreen(),
         routes: [

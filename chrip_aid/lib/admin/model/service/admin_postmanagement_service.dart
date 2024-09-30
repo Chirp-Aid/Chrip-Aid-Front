@@ -1,55 +1,66 @@
 import 'package:chrip_aid/common/entity/response_entity.dart';
-import 'package:chrip_aid/post/model/entity/get_posts_entity.dart';
+import 'package:chrip_aid/management/model/dto/add_orphanage_product_request_dto.dart';
+import 'package:chrip_aid/management/model/dto/edit_orphanage_info_request_dto.dart';
+import 'package:chrip_aid/member/model/entity/member_entity.dart';
+import 'package:chrip_aid/member/model/entity/orphanage_member_entity.dart';
+import 'package:chrip_aid/member/model/state/member_info_state.dart';
+import 'package:chrip_aid/orphanage/model/entity/orphanage_detail_entity.dart';
+import 'package:chrip_aid/orphanage/model/entity/product_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../repository/admin_postmanagement_repository.dart';
-
+import '../repository/admin_accountmanager_repository.dart';
 
 final adminPostManagementServiceProvider = Provider((ref) {
-  final repository = ref.read(adminPostManagementRepositoryProvider);
+  final repository = ref.read(adminAccountManagementRepositoryProvider);
   return AdminPostManagementService(repository, ref);
 });
 
 class AdminPostManagementService {
   final Ref ref;
-  late final AdminPostManagementRepository repository;
+  late final AdminAccountManagementRepository repository;
 
   AdminPostManagementService(this.repository, this.ref);
 
-  // 게시글 목록 조회
-  Future<ResponseEntity<List<GetPostsEntity>>> getPostList() async {
+  // TODO : 아래 함수 필요한걸로 바꿔야할듯
+  Future<ResponseEntity<OrphanageDetailEntity>> getOrphanageInfo() async {
     try {
-      List<GetPostsEntity> data = await repository.getPosts();
+      MemberEntity? member = MemberInfoState().value;
+      if (member is! OrphanageMemberEntity) {
+        return ResponseEntity.error(message: "알 수 없는 에러가 발생했습니다.");
+      }
+      int id = member.orphanageId;
+      OrphanageDetailEntity data = await repository.getOrphanageData(id);
       return ResponseEntity.success(entity: data);
     } catch (e) {
       return ResponseEntity.error(message: e.toString());
     }
   }
 
-  // 특정 게시글 조회
-  Future<ResponseEntity<GetPostsEntity>> getPost(int postId) async {
+  Future<ResponseEntity<List<ProductEntity>>> getProductList() async {
     try {
-      GetPostsEntity data = await repository.getPost(postId);
+      List<ProductEntity> data = await repository.getProducts();
       return ResponseEntity.success(entity: data);
     } catch (e) {
       return ResponseEntity.error(message: e.toString());
     }
   }
 
-  // 게시글 수정
-  // Future<ResponseEntity> editPost(EditPostRequestDTO dto) async {
-  //   try {
-  //     await repository.editPost(dto);
-  //     return ResponseEntity.success();
-  //   } catch (e) {
-  //     return ResponseEntity.error(message: e.toString());
-  //   }
-  // }
-
-  // 게시글 삭제
-  Future<ResponseEntity> deletePost(int postId) async {
+  Future<ResponseEntity<OrphanageDetailEntity>> editOrphanageProduct(
+      AddOrphanageProductRequestDTO dto,
+      ) async {
     try {
-      await repository.deletePost(postId);
+      await repository.editOrphanageProduct(dto);
+      return getOrphanageInfo();
+    } catch (e) {
+      return ResponseEntity.error(message: e.toString());
+    }
+  }
+
+  Future<ResponseEntity> editOrphanageInfo(
+      EditOrphanageInfoRequestDTO dto,
+      ) async {
+    try {
+      await repository.editOrphanageInfo(dto);
       return ResponseEntity.success();
     } catch (e) {
       return ResponseEntity.error(message: e.toString());

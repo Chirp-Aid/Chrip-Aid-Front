@@ -8,18 +8,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
-part 'admin_postmanagement_repository.g.dart';
+part 'supervisor_reportmanagement_repository.g.dart';
 
-final adminPostManagementRepositoryProvider = Provider((ref) {
+final supervisorReportManagementRepositoryProvider = Provider((ref) {
   final dio = ref.watch(dioProvider);
   // return OrphanageManagementRepositoryStub();
-  return AdminPostmanagementRepository(dio);
+  return SupervisorReportmanagementRepository(dio);
 });
 
 @RestApi()
-abstract class AdminPostmanagementRepository {
-  factory AdminPostmanagementRepository(Dio dio, {String? baseUrl}) =
-  _AdminPostmanagementRepository;
+abstract class SupervisorReportmanagementRepository {
+  factory SupervisorReportmanagementRepository(Dio dio, {String? baseUrl}) =
+  _SupervisorReportmanagementRepository;
 
   // TODO : 아래 부분 수정해야함
   @GET('/orphanages/{id}')

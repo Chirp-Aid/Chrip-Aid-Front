@@ -19,7 +19,7 @@ dependencies:
   go_router: ^9.0.0
 
   # Json Annotation
-  json_annotation: ^4.9.0
+  json_annotation: ^4.8.0
 
   # REST Api
   dio: ^5.2.1+1

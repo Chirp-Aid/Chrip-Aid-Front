@@ -5,7 +5,7 @@ import 'package:chrip_aid/common/component/custom_dropdown_button.dart';
 import 'package:chrip_aid/common/utils/snack_bar_util.dart';
 import 'package:chrip_aid/common/value_state/util/value_state_util.dart';
 import 'package:chrip_aid/member/model/dto/edit_user_info_request_dto.dart';
-import 'package:chrip_aid/member/model/entity/user_detail_entity.dart';
+import 'package:chrip_aid/member/model/entity/user_entity.dart';
 import 'package:chrip_aid/member/model/service/member_info_service.dart';
 import 'package:chrip_aid/member/model/state/member_info_state.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class EditUserInfoViewModel {
 
   final MemberInfoState userInfoState = MemberInfoState();
 
-  UserDetailEntity? get userInfo => userInfoState.value as UserDetailEntity?;
+  UserEntity? get userInfo => userInfoState.value as UserEntity?;
 
   EditUserInfoViewModel(this.ref) {
     _memberInfoService = ref.read(memberInfoServiceProvider);

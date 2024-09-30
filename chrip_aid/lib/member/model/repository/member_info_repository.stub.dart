@@ -4,7 +4,7 @@ import 'package:chrip_aid/auth/model/type/sex.dart';
 import 'package:chrip_aid/member/model/dto/edit_member_info_request_dto.dart';
 import 'package:chrip_aid/member/model/entity/member_entity.dart';
 import 'package:chrip_aid/member/model/entity/orphanage_member_entity.dart';
-import 'package:chrip_aid/member/model/entity/user_detail_entity.dart';
+import 'package:chrip_aid/member/model/entity/user_entity.dart';
 import 'package:chrip_aid/member/model/repository/member_info_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +19,7 @@ class MemberInfoRepositoryStub implements MemberInfoRepository {
   @override
   Future<MemberEntity> getUserInfo() async {
     return AuthorityState().value == AuthorityType.user
-        ? UserDetailEntity(
+        ? UserEntity(
             email: "email",
             name: "name",
             nickName: "nickName",
@@ -28,7 +28,6 @@ class MemberInfoRepositoryStub implements MemberInfoRepository {
             region: Gyeonggi.pajusi,
             phone: "01000000000",
             profileUrl: "https://picsum.photos/300/300",
-            role:'user'
           )
         : OrphanageMemberEntity(
             email: 'email',

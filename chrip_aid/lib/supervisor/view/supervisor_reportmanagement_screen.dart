@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../common/component/custom_post_list.dart';
+import '../../common/component/custom_report_list.dart';
 import '../../common/component/custom_toggle_button.dart';
 import '../../common/styles/colors.dart';
 import '../../common/styles/sizes.dart';
@@ -11,79 +11,88 @@ import '../../common/styles/text_styles.dart';
 import '../../common/value_state/component/value_state_listener.dart';
 import '../../orphanage/component/custom_text_field.dart';
 import '../../orphanage/layout/detail_page_layout.dart';
-import '../viewmodel/admin_accountmanagement_viewmodel.dart';
+import '../viewmodel/supervisor_accountmanagement_viewmodel.dart';
 
-class AdminPostmanagementScreen extends ConsumerWidget {
-  static String get routeName => 'postmanagement';
-
-  // 더미 데이터
+class SupervisorReportmanagementScreen extends ConsumerWidget {
+  static String get routeName => "reportmanagement";
   static const List<Map<String, dynamic>> dummyData = [
     {
-      'title': '초코파이',
-      'content': '초코파이 주세요',
-      'writtenAt': '2024-01-28',
-      'nickname': 'gumiorphanage',
-      'type': '물품 요청',
+      'title': '4시간 연강이 말입니까 ?',
+      'content' : '진짜 이건 너무하잖아요',
+      'target': '오병우 교수',
+      'writtenAt': '2024-09-25',
+      'nickname': 'minwoo',
+      'email' : 'minwoo1119@naver.com',
+      'isUser': 'false',
     },
     {
-      'title': '우유',
-      'content': '서울우유로 주세요',
-      'writtenAt': '2024-04-24',
-      'nickname': 'gumiorphanage',
-      'type': '물품 요청',
+      'title': '성윤이형이 수업갔어요',
+      'content' : '진짜 이건 너무하잖아요',
+      'target': 'seongyoon',
+      'writtenAt': '2024-09-22',
+      'nickname': 'minwoo',
+      'email' : 'minwoo1119@naver.com',
+      'isUser': 'true',
     },
     {
-      'title': '동그랑땡 잘 받았어요!',
-      'content': '명절 느낌 내게해줘서 너무 감사해요 ㅜㅜ',
-      'writtenAt': '2024-09-18',
-      'nickname': 'pajuorphanage',
-      'type': '기부 감사',
-    },
-    {
-      'title': '구미보육원 방문 예약합니다',
-      'content': '2024-05-11 구미보육원 방문 희망합니다.',
-      'writtenAt': '2024-03-11',
-      'nickname': 'babayLion',
-      'type': '방문 예약',
-    },
-    {
-      'title': '파주보육원 방문 예약합니다',
-      'content': '2024-06-21 파주보육원 방문 희망합니다.',
-      'writtenAt': '2024-05-11',
+      'title': '흰 셔츠가 없는데 사오래요',
+      'content' : '진짜 이건 너무하잖아요',
+      'target': '안형태 교수',
+      'writtenAt': '2024-09-21',
       'nickname': 'juhyeok',
-      'type': '방문 예약',
+      'email' : 'example@naver.com',
+      'isUser': 'true',
+    },
+    {
+      'title': '수업 재미없어요',
+      'content' : '진짜 이건 너무하잖아요',
+      'target': '컴퓨터공학과',
+      'writtenAt': '2024-09-17',
+      'nickname': 'youngjin',
+      'email' : 'example@naver.com',
+      'isUser': 'false',
+    },
+    {
+      'title': '라즈베리파이가 욕했어요',
+      'content' : '진짜 이건 너무하잖아요',
+      'target': 'razp',
+      'writtenAt': '2024-04-29',
+      'nickname': 'seongyoon',
+      'email' : 'example@naver.com',
+      'isUser': 'true',
     },
   ];
 
-  // StateProvider로 선택된 토글 값을 관리
-  final selectedToggleProvider = StateProvider<int>((ref) => 0);
-
-  AdminPostmanagementScreen({Key? key}) : super(key: key);
+  const SupervisorReportmanagementScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(adminAccountManagementViewModelProvider)..getInfo();
-    final selectedIndex = ref.watch(selectedToggleProvider); // 선택된 토글 인덱스
+    final viewModel = ref.read(supervisorAccountManagementViewModelProvider)..getInfo();
+    final isUserState = ref.watch(isUserFilterProvider);
 
-    // 선택된 인덱스에 따라 데이터 필터링
-    List<Map<String, dynamic>> filteredData = dummyData.where((item) {
-      if (selectedIndex == 0) {
-        return item['type'] == '방문 예약';
-      } else if (selectedIndex == 1) {
-        return item['type'] == '물품 요청';
-      } else {
-        return item['type'] == '기부 감사';
-      }
-    }).toList();
+    // 필터링된 데이터
+    final filteredData = dummyData
+        .where((user) => isUserState ? user['isUser'] == 'true' : user['isUser'] == 'false')
+        .toList();
 
     return DetailPageLayout(
       extendBodyBehindAppBar: false,
-      title: '게시글 관리',
+      title: '신고 관리',
       titleColor: Colors.white,
       appBarBackgroundColor: CustomColor.buttonMainColor,
       backgroundColor: CustomColor.backgroundMainColor,
       leadingColor: CustomColor.textReverseColor,
-      actions: [],
+      actions: [
+        IconButton(
+          onPressed: () => viewModel.navigateToEditOrphanageScreen(context),
+          icon: const Icon(Icons.search, size: kIconSmallSize),
+          color: CustomColor.textReverseColor,
+          splashRadius: kIconSmallSize,
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+        ),
+        const SizedBox(width: kPaddingMiddleSize),
+      ],
       child: ValueStateListener(
         state: viewModel.orphanageState,
         defaultBuilder: (_, state) => SingleChildScrollView(
@@ -92,22 +101,24 @@ class AdminPostmanagementScreen extends ConsumerWidget {
               children: [
                 SizedBox(height: 10.0),
                 CustomToggleButton(
-                  options: ['방문 예약', '물품 요청', '기부 감사'],
+                  options: ['사용자', '게시글'],
                   onChanged: (index) {
-                    ref.read(selectedToggleProvider.notifier).state = index;
+                    // isUser 상태 변경 (사용자가 클릭한 토글에 따라 상태 변경)
+                    ref.read(isUserFilterProvider.notifier).state = index == 0;
                   },
                 ),
-                SizedBox(height: 6.0),
+                SizedBox(height: 10.0),
                 Column(
                   children: filteredData.map((user) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: CustomPostList(
+                      child: CustomReportList(
                         title: user['title'],
-                        content: user['content'],
+                        target: user['target'],
                         writtenAt: user['writtenAt'],
-                        nickname: user['nickname'],
-                        onTap: () => _navigateToDetailPage(context, user),
+                        user: user['nickname'],
+                        isUser: user['isUser'] == 'true',
+                        onTap: ()=>_navigateToDetailPage(context, user),
                       ),
                     );
                   }).toList(),
@@ -175,8 +186,11 @@ class AdminPostmanagementScreen extends ConsumerWidget {
 
   void _navigateToDetailPage(BuildContext context, Map<String, dynamic> userData) {
     context.push(
-      '/supervisor/postmanagement/postdetail',
+      '/supervisor/reportmanagement/detail',
       extra: userData,
     );
   }
 }
+
+// isUser 필터 상태 관리
+final isUserFilterProvider = StateProvider<bool>((ref) => true);

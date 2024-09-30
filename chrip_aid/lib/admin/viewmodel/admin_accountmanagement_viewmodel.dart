@@ -1,89 +1,44 @@
-import 'package:chrip_aid/admin/model/state/orphanage_detail_state.dart';
-import 'package:chrip_aid/admin/model/state/user_detail_state.dart';
+import 'package:chrip_aid/common/value_state/util/value_state_util.dart';
+import 'package:chrip_aid/management/model/dto/add_orphanage_product_request_dto.dart';
+import 'package:chrip_aid/management/view/orphanage_edit_info_screen.dart';
+import 'package:chrip_aid/management/view/orphanage_edit_product_screen.dart';
+import 'package:chrip_aid/orphanage/model/state/orphanage_detail_state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../common/value_state/state/value_state.dart';
-import '../../member/model/entity/user_detail_entity.dart';
-import '../../orphanage/model/entity/orphanage_detail_entity.dart';
-import '../../orphanage/model/entity/orphanage_entity.dart';
 import '../model/service/admin_accountmanagement_service.dart';
 
-final adminAccountManagementViewModelProvider = Provider((ref) => AdminAccountManagementViewmodel(ref));
+final adminAccountManagementViewModelProvider =
+Provider((ref) => AdminAccountManagementViewmodel(ref));
 
 class AdminAccountManagementViewmodel {
   Ref ref;
-  late final AdminAccountManagementService _adminAccountManagementService;
+  late final AdminAccountManagementService _adminAccountManagementServiceManagementService;
 
-  // ValueStateNotifier로 타입 설정
-  ValueStateNotifier<List<UserDetailEntity>> userState = UserListState();
-  ValueStateNotifier<List<OrphanageEntity>> userOrphanageListState = UserOrphanageListState();
-  ValueStateNotifier<UserDetailEntity> userDetailState = UserDetailState();
-  ValueStateNotifier<OrphanageDetailEntity> orphanageUserDetailState = UserOrphanageDetailState();
+  OrphanageDetailState orphanageState = OrphanageDetailState();
 
   AdminAccountManagementViewmodel(this.ref) {
-    _adminAccountManagementService = ref.read(adminAccountManagementServiceProvider);
+    _adminAccountManagementServiceManagementService = ref.read(adminAccountManagementServiceProvider);
   }
 
-  Future<void> getUserList() async {
-    try {
-      userState.loading();
-      print('User list loading...');
-      final response = await _adminAccountManagementService.getUserList();
-      if (response.isSuccess && response.entity != null) {
-        userState.success(value: response.entity!);
-        print('User list successfully loaded: ${response.entity}');
-      } else {
-        userState.error(message: response.message ?? '알 수 없는 오류가 발생했습니다.');
-        print('Error loading user list: ${response.message}');
-      }
-    } catch (e) {
-      userState.error(message: e.toString());
-      print('Exception occurred while loading user list: $e');
-    }
+  void getInfo() => orphanageState
+      .withResponse(_adminAccountManagementServiceManagementService.getOrphanageInfo());
+
+  void navigateToAddProductScreen(
+      BuildContext context, {
+        AddOrphanageProductRequestDTO? entity,
+      }) {
+    context.pushNamed(OrphanageEditProductScreen.routeName, extra: entity).then(
+          (value) => orphanageState
+          .withResponse(_adminAccountManagementServiceManagementService.getOrphanageInfo()),
+    );
   }
 
-
-  Future<void> getOrphanageUserList() async {
-    try {
-      userOrphanageListState.loading();
-      final response = await _adminAccountManagementService.getOrphanageUserList();
-      if (response.isSuccess && response.entity != null) {
-        userOrphanageListState.success(value: response.entity);
-      } else {
-        userOrphanageListState.error(message: response.message ?? '알 수 없는 오류가 발생했습니다.');
-      }
-    } catch (e) {
-      userOrphanageListState.error(message: e.toString());
-    }
-  }
-
-  // 특정 사용자 세부 정보 가져오기
-  Future<void> getUserDetailInfo(String userId) async {
-    try {
-      userDetailState.loading();
-      final response = await _adminAccountManagementService.getUserById(userId);
-      if (response.isSuccess && response.entity != null) {
-        userDetailState.success(value: response.entity!);
-      } else {
-        userDetailState.error(message: response.message ?? '알 수 없는 오류가 발생했습니다.');
-      }
-    } catch (e) {
-      userDetailState.error(message: e.toString());
-    }
-  }
-
-  // 특정 보육원 사용자 세부 정보 가져오기
-  Future<void> getOrphanageUserDetailInfo(String orphanageUserId) async {
-    try {
-      orphanageUserDetailState.loading();
-      final response = await _adminAccountManagementService.getOrphanageUserById(orphanageUserId);
-      if (response.isSuccess && response.entity != null) {
-        orphanageUserDetailState.success(value: response.entity);
-      } else {
-        orphanageUserDetailState.error(message: response.message ?? '알 수 없는 오류가 발생했습니다.');
-      }
-    } catch (e) {
-      orphanageUserDetailState.error(message: e.toString());
-    }
+  void navigateToEditOrphanageScreen(BuildContext context) {
+    context.pushNamed(OrphanageEditInfoScreen.routeName).then(
+          (value) => orphanageState
+          .withResponse(_adminAccountManagementServiceManagementService.getOrphanageInfo()),
+    );
   }
 }

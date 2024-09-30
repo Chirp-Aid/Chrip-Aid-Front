@@ -1,5 +1,5 @@
 import 'package:chrip_aid/member/model/entity/orphanage_member_entity.dart';
-import 'package:chrip_aid/member/model/entity/user_detail_entity.dart';
+import 'package:chrip_aid/member/model/entity/user_entity.dart';
 
 abstract class MemberEntity {
   final String email;
@@ -15,7 +15,7 @@ abstract class MemberEntity {
   factory MemberEntity.fromJson(Map<String, dynamic> json) {
     // TODO : MemberEntity factory need dependency with authority type
     if(json["orphanage_id"] == null) {
-      return UserDetailEntity.fromJson(json);
+      return UserEntity.fromJson(json);
     } else {
       return OrphanageMemberEntity.fromJson(json);
     }
